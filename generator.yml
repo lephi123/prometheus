@@ -1,5 +1,7 @@
 modules:
- cisco:
+########### Cisco 
+  cisco:
+#   walk: [sysUpTime, interfaces, ifXTable]
    walk:
    - 1.3.6.1.2.1.2.2.1.1
    - 1.3.6.1.2.1.2.2.1.2
@@ -17,9 +19,8 @@ modules:
    - 1.3.6.1.2.1.31.1.1.1.18
    - 1.3.6.1.4.1.9.9.48.1.1.1.5
    - 1.3.6.1.4.1.9.9.48.1.1.1.6
+   - 1.3.6.1.4.1.9.2.1
    - 1.3.6.1.2.1.1.5
-   - 1.3.6.1.4.1.9.1.1250
-   - 1.3.6.1.4.1.9.1.1251
    lookups:
      - source_indexes: [ifIndex]
        lookup: ifAlias
@@ -42,4 +43,4 @@ modules:
    retries: 3
    timeout: 10s
    auth:
-    community: snmpmonitor
+    community: public
