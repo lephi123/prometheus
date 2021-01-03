@@ -1,0 +1,251 @@
+######################################HQ###################################
+
+#####################################################################      
+  - job_name: 'PROMETHEUS-SERVER'
+    scrape_interval: 15s
+    static_configs:
+    - targets: ['172.16.100.20:9100']
+      labels:
+       hostname: prometheus
+       type: linux
+       dns: dacn.info
+
+#####################################################################      
+  - job_name: 'MAIL-SERVER'
+    scrape_interval: 15s
+    static_configs:
+    - targets: ['172.16.100.30:9100']
+      labels:
+       hostname: mail
+       type: linux
+       dns: dacn.info
+
+#####################################################################      
+  - job_name: 'DNS-SERVER'
+    scrape_interval: 15s
+    static_configs:
+    - targets: ['172.16.100.40:9100']
+      labels:
+       hostname: dns
+       type: linux
+       dns: dacn.info
+
+#####################################################################      
+  - job_name: 'GRAYLOG-SERVER'
+    scrape_interval: 15s
+    static_configs:
+    - targets: ['172.16.100.50:9100']
+      labels:
+       hostname: graylog
+       type: linux
+       dns: dacn.info
+
+#####################################################################      
+  - job_name: 'WEB-SERVER'
+    scrape_interval: 3m
+    scrape_timeout: 3m
+    static_configs:
+    - targets: ['172.16.200.100:9100']
+      labels:
+       hostname: web
+       type: linux
+       dns: dacn.info
+
+#####################################################################      
+  - job_name: 'HQ-PF1'
+    scrape_interval: 2m
+    scrape_timeout: 2m
+    static_configs:
+    - targets: ['172.16.10.2:9100']
+      labels:
+       hostname: hqpf1
+       type: linux
+       dns: dacn.info
+
+#####################################################################      
+  - job_name: 'HQ-PF2'
+    scrape_interval: 1m
+    static_configs:
+    - targets: ['172.16.10.3:9100']
+      labels:
+       hostname: hqpf2
+       type: linux
+       dns: dacn.info
+
+#####################################################################
+  - job_name: 'CISCOISE'
+    scrape_interval: 3m
+    scrape_timeout: 3m
+    static_configs:
+    - targets: ['172.16.100.60']  # Switch IP address
+      labels:
+       hostname: ise
+       type: cisco-ise
+       dns: dacn.info
+    metrics_path: /snmp
+    params:
+     module: [if_mib]
+    relabel_configs:
+    - source_labels: [__address__]
+      target_label: __param_target
+    - source_labels: [__param_target]
+      target_label: instance
+    - target_label: __address__
+      replacement: 172.16.100.20:9116
+      
+#####################################################################
+  - job_name: 'HQ-CORESW'
+    scrape_interval: 3m
+    scrape_timeout: 3m
+    static_configs:
+    - targets: ['172.16.1.10']  # Switch IP address
+      labels:
+       hostname: HQ-CORESW
+       type: switch
+       dns: dacn.info
+    metrics_path: /snmp
+    params:
+     module: [if_mib]
+    relabel_configs:
+    - source_labels: [__address__]
+      target_label: __param_target
+    - source_labels: [__param_target]
+      target_label: instance
+    - target_label: __address__
+      replacement: 172.16.100.20:9116
+
+#####################################################################
+  - job_name: 'HQ-ACSW1'
+    scrape_interval: 3m
+    scrape_timeout: 3m
+    static_configs:
+    - targets: ['172.16.1.20']  # Switch IP address
+      labels:
+       hostname: HQ-ACSW1
+       type: switch
+       dns: dacn.info
+    metrics_path: /snmp
+    params:
+     module: [if_mib]
+    relabel_configs:
+    - source_labels: [__address__]
+      target_label: __param_target
+    - source_labels: [__param_target]
+      target_label: instance
+    - target_label: __address__
+      replacement: 172.16.100.20:9116
+
+#####################################################################
+  - job_name: 'HQ-ACSW2'
+    scrape_interval: 3m
+    scrape_timeout: 3m
+    static_configs:
+    - targets: ['172.16.1.30']  # Switch IP address
+      labels:
+       hostname: HQ-ACSW2
+       type: switch
+       dns: dacn.info
+    metrics_path: /snmp
+    params:
+     module: [if_mib]
+    relabel_configs:
+    - source_labels: [__address__]
+      target_label: __param_target
+    - source_labels: [__param_target]
+      target_label: instance
+    - target_label: __address__
+      replacement: 172.16.100.20:9116
+
+####################################HQ#####################################
+
+
+####################################BR#####################################
+
+#####################################################################      
+  - job_name: 'BR-PF1'
+    scrape_interval: 3m
+    scrape_timeout: 3m
+    static_configs:
+    - targets: ['172.16.2.2:9100']
+      labels:
+       hostname: brpf1
+       type: linux
+       dns: dacn.info
+
+#####################################################################      
+  - job_name: 'BR-PF2'
+    scrape_interval: 3m
+    scrape_timeout: 3m
+    static_configs:
+    - targets: ['192.168.1.40:9100']
+      labels:
+       hostname: brpf2
+       type: linux
+       dns: dacn.info
+
+#####################################################################
+  - job_name: 'BR-CORESW'
+    scrape_interval: 3m
+    scrape_timeout: 3m
+    static_configs:
+    - targets: ['172.16.2.10']  # Switch IP address
+      labels:
+       hostname: BR-CORESW
+       type: switch
+       dns: dacn.info
+    metrics_path: /snmp
+    params:
+     module: [if_mib]
+    relabel_configs:
+    - source_labels: [__address__]
+      target_label: __param_target
+    - source_labels: [__param_target]
+      target_label: instance
+    - target_label: __address__
+      replacement: 172.16.100.20:9116
+      
+#####################################################################
+  - job_name: 'BR-ACSW1'
+    scrape_interval: 3m
+    scrape_timeout: 3m
+    static_configs:
+    - targets: ['172.16.2.20']  # Switch IP address
+      labels:
+       hostname: BR-ACSW1
+       type: switch
+       dns: dacn.info
+    metrics_path: /snmp
+    params:
+     module: [if_mib]
+    relabel_configs:
+    - source_labels: [__address__]
+      target_label: __param_target
+    - source_labels: [__param_target]
+      target_label: instance
+    - target_label: __address__
+      replacement: 172.16.100.20:9116
+
+#####################################################################
+  - job_name: 'BR-ACSW2'
+    scrape_interval: 3m
+    scrape_timeout: 3m
+    static_configs:
+    - targets: ['172.16.2.30']  # Switch IP address
+      labels:
+       hostname: BR-ACSW2
+       type: switch
+       dns: dacn.info
+    metrics_path: /snmp
+    params:
+     module: [if_mib]
+    relabel_configs:
+    - source_labels: [__address__]
+      target_label: __param_target
+    - source_labels: [__param_target]
+      target_label: instance
+    - target_label: __address__
+      replacement: 172.16.100.20:9116
+
+####################################BR#####################################
+
+
